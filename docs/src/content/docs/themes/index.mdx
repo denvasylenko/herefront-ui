@@ -1,0 +1,29 @@
+---
+title: Themes
+description: A theme is a set of tokens. Switch the look with one attribute.
+---
+import ThemeSwitch from '../../../components/ThemeSwitch.astro';
+
+A theme gives every colour token a value, for light and, if it has one, for dark. The measures (radii, spacing,
+motion) stay the same in every theme. Switching is one attribute, on the whole page or on one box:
+
+<ThemeSwitch />
+
+`herefront` is light only — it stays light even when the page asks for dark, as the client cabinet does.
+
+## Make your own theme
+
+1. Copy `tokens/themes/dashboard.json` to `tokens/themes/<name>.json` and change the values. Every key of `dashboard`
+   must be there (a test checks it), so no component ever meets an empty colour.
+2. Set `"$scheme"` to `auto` (light and dark), `light` or `dark`.
+3. `npm run build` — the theme is now `data-hf-theme="<name>"`.
+
+## Customising, from the most common to the rarest
+
+1. **Tokens and themes** — a different palette, radii, density, glass.
+2. **Attributes** — a variant or a state: `variant`, `size`, `tone`, `disabled`.
+3. **`::part()`** — one part inside a component, from a stable, documented list.
+4. **Slots** — your own content: an icon, a label, a trailing value.
+5. **A component's own variable** (`--hf-button-h`) — for one place, without a new theme.
+
+Never `!important` and never the internal classes: if 1–5 cannot do it, it belongs in herefront-ui.

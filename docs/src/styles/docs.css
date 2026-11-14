@@ -1,0 +1,8 @@
+/* The docs wear the system itself: Starlight's accent is the tokens' accent */
+:root { --sl-color-accent: var(--hf-accent, #0071e3); --sl-color-accent-high: var(--hf-accent, #0071e3); }
+.hf-swatch { width: 28px; height: 28px; border-radius: 8px; box-shadow: inset 0 0 0 .5px rgba(0,0,0,.18); flex: none; }
+.hf-tok { width: 100%; border-collapse: collapse; font-size: .9rem; }
+.hf-tok td, .hf-tok th { padding: .45rem .5rem; border-bottom: .5px solid var(--sl-color-hairline); vertical-align: middle; text-align: left; }
+.hf-tok code { white-space: nowrap; }
+.hf-find { width: 100%; height: 40px; border-radius: 10px; border: 1px solid var(--sl-color-gray-5); padding: 0 12px; font: inherit; background: var(--sl-color-bg); color: var(--sl-color-text); }
+.hf-stage { border-radius: 16px; padding: 20px; border: .5px solid var(--sl-color-hairline); background: var(--hf-bg); color: var(--hf-ink); }

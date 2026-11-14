@@ -1,0 +1,28 @@
+---
+title: React
+description: Use the tokens in a React app in five minutes.
+---
+
+1. Copy the built files into your app (until the npm package ships):
+
+   ```bash
+   node build/sync.mjs cheese ../your-app   # or copy dist/tokens.css by hand
+   ```
+
+2. Import them once, at the top of your root stylesheet:
+
+   ```css
+   @import './ui/tokens.css';
+   ```
+
+3. Use the tokens:
+
+   ```jsx
+   export function Card({ children }) {
+     return <div style={{ background: 'var(--hf-panel)', borderRadius: 'var(--hf-radius-3)', padding: 'var(--hf-space-5)' }}>{children}</div>
+   }
+   ```
+
+4. Pick a theme for the whole app on `<html data-hf-theme="herefront">`, or for one box on any element.
+
+The React components (`Button`, `Segmented`, `Toggle`, `List`, `Chip`…) arrive as thin wrappers over the web components; see [Components](../../components/).

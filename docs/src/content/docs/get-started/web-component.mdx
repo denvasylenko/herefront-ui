@@ -1,0 +1,15 @@
+---
+title: Web component
+description: Use herefront-ui on any page, with any framework or none.
+---
+
+```html
+<link rel="stylesheet" href="/hf/tokens.css">
+<script type="module" src="/hf/components.js"></script>   <!-- arrives with the first components -->
+
+<hf-button variant="filled">Publish</hf-button>
+```
+
+Each component works without JavaScript too: under the tag there is a plain HTML element with the same look
+(`.hf-button`), so a page stays usable when scripts are off. Customise it with tokens first, then attributes, then
+`::part()`, then slots — see [Themes](../../themes/).

@@ -1,0 +1,14 @@
+---
+title: Jinja site
+description: Use the tokens in a server-rendered site.
+---
+
+Sites render on the server and must work without scripts, so they inline the tokens:
+
+```jinja
+<style>{{ tokens_css | safe }}</style>
+<html data-hf-theme="{{ theme }}">
+```
+
+The site's own palette is a theme: the same names (`--hf-bg`, `--hf-accent`…), other values. Measures that are the same
+everywhere (a list row, a press, a spring, the glass) come from `dist/ios-tokens.css`, which carries no palette colours.

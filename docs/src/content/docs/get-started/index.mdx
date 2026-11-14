@@ -1,0 +1,15 @@
+---
+title: What it is
+description: The Herefront design system in one page.
+---
+
+Herefront UI is the one place where Herefront's look lives: **tokens** (colours, radii, spacing, type, motion, glass),
+**themes** (sets of tokens) and, step by step, **components** (web components with thin React wrappers).
+The dashboard, the client cabinet, herefront.com, the sites we build and the Duchess chat widget all read from it, so a
+change made here reaches every product the same day.
+
+- One source: `tokens/*.json`. Everything else — `dist/tokens.css`, `dist/tokens.json`, these pages — is generated.
+- Names start with `--hf-`: `--hf-accent`, `--hf-radius-3`, `--hf-motion-spring`.
+- A theme is switched by one attribute on any element: `data-hf-theme="herefront"`, and the scheme by `data-hf-scheme="dark"`.
+
+Pick how you connect it: [React](react/), a [web component](web-component/) page, or a [Jinja site](jinja/).
