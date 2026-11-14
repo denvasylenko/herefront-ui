@@ -1,48 +1,121 @@
 ---
-// Every token, read from ../dist/tokens.json at build time: theme colours with a live swatch in light and dark,
-// measures with their value. A search field filters the rows as you type.
+// Every token, read from ../dist/tokens.json at build time. Colours: a swatch in light and in dark side by side;
+// measures: the size drawn. Rows, not a wide table, so a phone reads them without scrolling sideways.
+// The search field filters as you type (name or value); an empty result says so.
 import data from '../../../dist/tokens.json';
 const themes = Object.entries(data.themes);
 const isColor = (v) => /^(#|rgba?\(|linear-gradient)/.test(String(v));
+const isShadow = (k) => /^shadow-\d/.test(k);
+const GROUPS = [
+  ['Surfaces and text', /^(bg|panel|panel-2|popover|ink|ink-2|ink-3|line|line-strong|fill|fill-2|soft|hover|scrim|bar-bg|knob|seg-)/],
+  ['Accent and status', /^(accent|link|ok|warn|danger|on-|switch)/],
+  ['Shadows', /^shadow/],
+  ['Charts', /^viz/],
+  ['Type and brand', /^(font|ease|brand)/],
+];
+const groupOf = (k) => (GROUPS.find(([, re]) => re.test(k)) || ['Other'])[0];
 const base = Object.entries(data.base);
+const baseGroups = [...new Set(base.map(([k]) => k.split('-')[0]))];
 ---
-<input class="hf-find" type="search" placeholder="Find a token: accent, radius, glass…" aria-label="Find a token" data-hf-find />
-{themes.map(([id, t]) => {
-  const keys = [...new Set([...Object.keys(t.light), ...Object.keys(t.dark)])];
-  return (
-    <section>
-      <h2 id={`theme-${id}`}>Theme <code>{id}</code></h2>
-      <table class="hf-tok" data-hf-rows>
-        <thead><tr><th>Token</th><th>Light</th>{t.scheme !== 'light' && <th>Dark</th>}</tr></thead>
-        <tbody>{keys.map((k) => (
-          <tr data-name={k}>
-            <td><code>--hf-{k}</code></td>
-            {[t.light[k], ...(t.scheme !== 'light' ? [t.dark[k]] : [])].map((v) => (
-              <td>{v === undefined ? <span>—</span> : <span style="display:flex;gap:10px;align-items:center">
-                {isColor(v) && <span class="hf-swatch" style={`background:${v}`} />}
-                {/^0 |shadow/.test(k) && <span class="hf-swatch" style={`background:#fff;box-shadow:${v}`} />}
-                <code>{v}</code></span>}</td>
+<div class="tt not-content">
+  <div class="tt-find">
+    <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M13 13l4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    <input type="search" placeholder="Search tokens: accent, radius, glass…" aria-label="Search tokens" data-find />
+  </div>
+  <p class="tt-none" hidden data-none>No token matches “<span></span>”.</p>
+  {themes.map(([id, t]) => {
+    const keys = [...new Set([...Object.keys(t.light), ...Object.keys(t.dark)])];
+    const dark = t.scheme !== 'light';
+    const groups = [...new Set(keys.map(groupOf))];
+    return (
+      <section class="tt-sec" data-sec>
+        <h2 id={`theme-${id}`}>{id === 'dashboard' ? 'Dashboard theme' : id[0].toUpperCase() + id.slice(1) + ' theme'}</h2>
+        <p class="tt-note">{dark ? 'Light and dark values. The default theme: it applies without any attribute.' : `Light only. Turn it on with data-hf-theme="${id}".`}</p>
+        {groups.map((g) => (
+          <div class="tt-group" data-group>
+            <h3>{g}</h3>
+            <div class="tt-head" aria-hidden="true"><span>Token</span><span>Light</span>{dark && <span>Dark</span>}</div>
+            {keys.filter((k) => groupOf(k) === g).map((k) => (
+              <div class={`tt-row${dark ? '' : ' one'}`} data-row data-text={`${k} ${t.light[k] ?? ''} ${t.dark[k] ?? ''}`.toLowerCase()}>
+                <code class="tt-name">--hf-{k}</code>
+                {[['light', t.light[k]], ...(dark ? [['dark', t.dark[k]]] : [])].map(([s, v]) => (
+                  <span class="tt-val">
+                    <span class="tt-mode">{s === 'light' ? 'Light' : 'Dark'}</span>
+                    {v === undefined ? <span class="tt-empty">—</span> : <>
+                      {isColor(v) && <span class={`tt-sw ${s}`}><i style={`background:${v}`} /></span>}
+                      {isShadow(k) && <span class={`tt-sw ${s}`}><i style={`background:${s === 'dark' ? '#1c1c1e' : '#fff'};box-shadow:${v}`} /></span>}
+                      <code>{v}</code>
+                    </>}
+                  </span>
+                ))}
+              </div>
             ))}
-          </tr>))}
-        </tbody>
-      </table>
-    </section>
-  );
-})}
-<h2 id="measures">Measures (every theme)</h2>
-<table class="hf-tok" data-hf-rows>
-  <thead><tr><th>Token</th><th>Value</th></tr></thead>
-  <tbody>{base.map(([k, v]) => (
-    <tr data-name={k}><td><code>--hf-{k}</code></td><td><span style="display:flex;gap:10px;align-items:center">
-      {/^radius/.test(k) && <span class="hf-swatch" style={`border-radius:${v};background:var(--sl-color-accent-low);box-shadow:inset 0 0 0 1.5px var(--sl-color-accent)`} />}
-      {/^space/.test(k) && <span style={`display:inline-block;height:12px;width:${v};background:var(--sl-color-accent)`} />}
-      <code>{v}</code></span></td></tr>))}
-  </tbody>
-</table>
+          </div>
+        ))}
+      </section>
+    );
+  })}
+  <section class="tt-sec" data-sec>
+    <h2 id="measures">Measures</h2>
+    <p class="tt-note">The same in every theme.</p>
+    {baseGroups.map((g) => (
+      <div class="tt-group" data-group>
+        <h3>{g[0].toUpperCase() + g.slice(1)}</h3>
+        {base.filter(([k]) => k.split('-')[0] === g).map(([k, v]) => (
+          <div class="tt-row one" data-row data-text={`${k} ${v}`.toLowerCase()}>
+            <code class="tt-name">--hf-{k}</code>
+            <span class="tt-val">
+              {g === 'radius' && <span class="tt-rad" style={`border-radius:${v}`} />}
+              {g === 'space' && <span class="tt-bar" style={`width:${v}`} />}
+              <code>{v}</code>
+            </span>
+          </div>
+        ))}
+      </div>
+    ))}
+  </section>
+</div>
+<style>
+  .tt-find { position: sticky; top: calc(var(--sl-nav-height) + 8px); z-index: 5; display: flex; align-items: center; gap: 8px; height: 44px; padding: 0 14px;
+    margin: 0 0 1.5rem; border-radius: 12px; background: var(--sl-color-gray-6); color: var(--sl-color-gray-3); }
+  .tt-find svg { width: 18px; height: 18px; flex: none; }
+  .tt-find input { flex: 1; min-width: 0; height: 100%; border: 0; outline: 0; background: transparent; color: var(--sl-color-white); font: inherit; font-size: 1rem; }
+  .tt-find:focus-within { box-shadow: 0 0 0 3px color-mix(in srgb, var(--sl-color-accent) 40%, transparent); }
+  .tt-none { color: var(--sl-color-gray-3); }
+  .tt-sec { margin: 0 0 2.5rem; }
+  .tt-sec h2 { font-size: 1.6rem; margin: 0 0 .25rem; }
+  .tt-note { margin: 0 0 1.25rem; color: var(--sl-color-gray-3); }
+  .tt-group { margin: 0 0 1.5rem; }
+  .tt-group h3 { font-size: .8rem; font-weight: 600; letter-spacing: .02em; text-transform: uppercase; color: var(--sl-color-gray-3); margin: 0 0 .4rem; }
+  .tt-head, .tt-row { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) minmax(0, 1fr); gap: 16px; align-items: center; }
+  .tt-row.one { grid-template-columns: minmax(0, 1.1fr) minmax(0, 2fr); }
+  .tt-head { font-size: .78rem; color: var(--sl-color-gray-3); padding: 0 0 6px; border-bottom: 1px solid var(--sl-color-hairline); }
+  .tt-row { padding: 10px 0; border-bottom: .5px solid var(--sl-color-hairline); }
+  .tt-name { font-size: .85rem; color: var(--sl-color-white); overflow-wrap: anywhere; }
+  .tt-val { display: flex; align-items: center; gap: 10px; min-width: 0; }
+  .tt-val code { font-size: .8rem; color: var(--sl-color-gray-2); overflow-wrap: anywhere; }
+  .tt-mode { display: none; font-size: .75rem; color: var(--sl-color-gray-3); width: 34px; flex: none; }
+  .tt-sw { width: 32px; height: 32px; flex: none; border-radius: 9px; display: grid; place-items: center; }
+  .tt-sw.light { background: #fff; box-shadow: inset 0 0 0 .5px rgba(0,0,0,.15); }
+  .tt-sw.dark { background: #000; box-shadow: inset 0 0 0 .5px rgba(255,255,255,.2); }
+  .tt-sw i { width: 22px; height: 22px; border-radius: 6px; box-shadow: inset 0 0 0 .5px rgba(128,128,128,.35); }
+  .tt-rad { width: 32px; height: 32px; flex: none; background: color-mix(in srgb, var(--sl-color-accent) 18%, transparent); box-shadow: inset 0 0 0 1.5px var(--sl-color-accent); }
+  .tt-bar { height: 10px; flex: none; border-radius: 2px; background: var(--sl-color-accent); }
+  .tt-empty { color: var(--sl-color-gray-4); }
+  [hidden] { display: none !important; }
+  @media (max-width: 640px) {
+    .tt-head { display: none; }
+    .tt-row, .tt-row.one { grid-template-columns: 1fr; gap: 6px; }
+    .tt-mode { display: inline; }
+  }
+</style>
 <script>
-  const find = document.querySelector('[data-hf-find]');
+  const box = document.querySelector('.tt'), find = box?.querySelector('[data-find]'), none = box?.querySelector('[data-none]')
   find?.addEventListener('input', () => {
-    const q = find.value.trim().toLowerCase();
-    document.querySelectorAll('[data-hf-rows] tr[data-name]').forEach((tr) => { tr.hidden = !!q && !tr.dataset.name.includes(q); });
-  });
+    const q = find.value.trim().toLowerCase(); let shown = 0
+    box.querySelectorAll('[data-row]').forEach((r) => { const on = !q || r.dataset.text.includes(q); r.hidden = !on; if (on) shown++ })
+    box.querySelectorAll('[data-group]').forEach((g) => { g.hidden = !g.querySelector('[data-row]:not([hidden])') })
+    box.querySelectorAll('[data-sec]').forEach((s) => { s.hidden = !s.querySelector('[data-row]:not([hidden])') })
+    none.hidden = shown > 0; none.querySelector('span').textContent = find.value
+  })
 </script>

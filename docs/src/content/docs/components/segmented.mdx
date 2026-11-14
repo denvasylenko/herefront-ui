@@ -1,0 +1,38 @@
+---
+title: Segmented control
+description: Two to five views of the same content.
+---
+import Playground from '../../../components/Playground.astro';
+import Example from '../../../components/Example.astro';
+
+<Playground tag="hf-segmented" inner={'<option value="list">List</option><option value="map">Map</option><option value="stats">Stats</option>'} attrs={{ value: 'list', 'aria-label': 'View' }} controls={[
+  { name: 'size', label: 'Size', type: 'choice', options: ['medium', 'large'] },
+  { name: 'block', label: 'Full width', type: 'bool' },
+]} />
+
+## Examples
+
+<Example title="Statistics period" note="Three views of the same number." html='<div style="padding:18px;border-radius:var(--hf-radius-4);background:var(--hf-panel);box-shadow:var(--hf-shadow-1);display:grid;gap:14px"><hf-segmented block value="7" aria-label="Period"><option value="7">7 days</option><option value="30">30 days</option><option value="90">90 days</option></hf-segmented><div><span style="font-size:40px;font-weight:700;letter-spacing:-0.02em">128</span> <span style="color:var(--hf-ok);font-weight:600">↑ 12%</span><div style="color:var(--hf-ink-2);font-size:14px">guests this week</div></div></div>' />
+
+<Example title="Requests and questions" note="Two lists of one inbox." html='<div style="display:grid;gap:12px"><hf-segmented block value="req" aria-label="Inbox"><option value="req">Requests · 3</option><option value="q">Questions · 1</option></hf-segmented><hf-list style="margin:0"><hf-row title="Table for 4" subtitle="Sat 20:00 · Marco" nav></hf-row><hf-row title="Take-away order" subtitle="Today 13:15 · Giulia" nav></hf-row></hf-list></div>' />
+
+## When to use
+
+For 2–5 mutually exclusive views of one thing: List / Map, 7 / 30 / 90 days. More than five, or different actions —
+use [chips](../chip/) or a menu.
+
+## Behaviour
+
+- The choice is instant and the white thumb **slides** to it with a small spring.
+- All segments are the same width; labels never get cut.
+- `←` / `→` move the choice when the control has focus.
+
+## API
+
+| | |
+| --- | --- |
+| Content | `<option value="…">Label</option>` for each segment |
+| Attributes | `value`, `size` (`medium` · `large`), `block`, `aria-label` |
+| Property | `value` |
+| Parts | `track`, `thumb`, `segment` |
+| Events | `change` — `event.detail.value` |

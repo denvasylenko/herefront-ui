@@ -1,0 +1,32 @@
+---
+title: List
+description: Inset grouped rows, the backbone of Settings.
+---
+import Playground from '../../../components/Playground.astro';
+import Example from '../../../components/Example.astro';
+
+<Playground tag="hf-list" width="420px" center={false} inner={'<hf-row title="Opening hours" value="Mon–Sat 9–19" nav></hf-row><hf-row title="Menu and prices" nav></hf-row><hf-row title="Online booking"><hf-toggle checked aria-label="Online booking"></hf-toggle></hf-row><hf-row title="Delete the site" destructive nav></hf-row>'} attrs={{ header: 'Site', footer: 'Changes appear on your site after you publish.' }} />
+
+## Examples
+
+<Example title="Settings of the client cabinet" note="Groups with a header and a footer; values in grey, chevrons go deeper." html='<div><hf-list header="Site"><hf-row title="Opening hours" value="Mon–Sat 9–19" nav></hf-row><hf-row title="Menu and prices" value="12 items" nav></hf-row><hf-row title="Languages" value="Italiano, English" nav></hf-row></hf-list><hf-list header="Guests" footer="Guests can book a table right on your site."><hf-row title="Online booking"><hf-toggle checked aria-label="Online booking"></hf-toggle></hf-row><hf-row title="Where requests arrive" value="Telegram" nav></hf-row></hf-list><hf-list style="margin:0"><hf-row title="Sign out" destructive nav></hf-row></hf-list></div>' />
+
+## Rows
+
+- **Title** on the left; on the right a grey **value**, a **chevron** (opens a deeper screen), or a control such as a [toggle](../toggle/).
+- A chevron means “opens a screen”. No chevron means an action or plain data.
+- Separators are hairlines inset from the left; the last row has none.
+- A row with `href` is a link; with `nav` and no `href` it is a button — both highlight while pressed.
+
+## API
+
+| `<hf-list>` | |
+| --- | --- |
+| Attributes | `header` (small grey title above), `footer` (explanation below) |
+| Parts | `header`, `group`, `footer` |
+
+| `<hf-row>` | |
+| --- | --- |
+| Attributes | `title`, `subtitle`, `value`, `href`, `nav`, `destructive` |
+| Slots | `icon` — a 29 px icon tile; default — a trailing control |
+| Parts | `row`, `title`, `value`, `chevron` |

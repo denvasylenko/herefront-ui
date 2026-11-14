@@ -1,0 +1,46 @@
+---
+title: Button
+description: An action, from the one main action of the screen to a quiet link.
+---
+import Playground from '../../../components/Playground.astro';
+import Example from '../../../components/Example.astro';
+
+<Playground tag="hf-button" each={{ name: 'variant', values: ['filled', 'tinted', 'gray', 'plain', 'destructive', 'glass'] }}
+  inner={{ filled: 'Publish', tinted: 'Preview', gray: 'Edit', plain: 'Cancel', destructive: 'Delete', glass: 'Share' }} controls={[
+  { name: 'size', label: 'Size', type: 'choice', options: ['medium', 'small', 'large'] },
+  { name: 'disabled', label: 'Disabled', type: 'bool' },
+]} />
+
+## Examples
+
+<Example title="The draft bar" note="One filled button for the main action; the quieter one next to it." html='<div style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:var(--hf-radius-4);background:var(--hf-panel);box-shadow:var(--hf-shadow-1)"><span style="flex:1;font-size:15px">Draft · 2 changes</span><hf-button variant="plain">Discard</hf-button><hf-button variant="filled">Publish</hf-button></div>' />
+
+<Example title="Something that cannot be undone" note="A destructive button names the action; Cancel is plain." html='<div style="padding:22px 20px 14px;border-radius:var(--hf-radius-4);background:var(--hf-panel);box-shadow:var(--hf-shadow-2);display:grid;gap:8px;text-align:center"><b style="font-size:17px">Delete this site?</b><span style="font-size:14px;color:var(--hf-ink-2)">The address stops working for your guests.</span><hf-button variant="destructive" size="large" block style="margin-top:8px">Delete site</hf-button><hf-button variant="plain" block>Cancel</hf-button></div>' />
+
+<Example title="Glass over a photo" note="Glass keeps a button readable on a busy picture." html='<div style="height:180px;border-radius:var(--hf-radius-4);background:linear-gradient(135deg,#f4a261,#e76f51 45%,#6d597a);display:flex;align-items:flex-end;justify-content:flex-end;padding:14px"><hf-button variant="glass">Share</hf-button></div>' />
+
+## When to use which
+
+| Style | When | Apple |
+| --- | --- | --- |
+| `filled` | The one main action of the screen. Never two side by side. | Filled (prominent) |
+| `tinted` | Important, but not the main one. | Tinted |
+| `gray` | Ordinary actions. The default. | Gray |
+| `plain` | Tertiary, inside a row, “Cancel”. | Plain |
+| `destructive` | Delete, switch off. | Destructive |
+| `glass` | Over a photo or a busy background. | Glass |
+
+## Behaviour
+
+- It sinks a little the moment you press and fires when you **release**; slide your finger off and nothing happens.
+- Disabled is faded and does nothing — say next to it why it is disabled.
+- `Tab` reaches it, `Enter` and `Space` press it; the focus ring shows only for the keyboard.
+
+## API
+
+| | |
+| --- | --- |
+| Attributes | `variant` (`filled` · `tinted` · `gray` · `plain` · `destructive` · `glass`), `size` (`small` · `medium` · `large`), `disabled`, `block` |
+| Slots | default — the label; `icon` — an icon before it |
+| Parts | `button` |
+| Events | `click` (not fired while disabled) |

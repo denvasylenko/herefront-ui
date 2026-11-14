@@ -45,6 +45,7 @@
     "on-ok": "#ffffff",
     "on-danger": "#ffffff",
     "popover": "#ffffff",
-    "shadow-color": "#000000"
+    "shadow-color": "#000000",
+    "switch": "#34c759"
   }
 }

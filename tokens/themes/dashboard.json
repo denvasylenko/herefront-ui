@@ -42,7 +42,8 @@
     "on-ok": "#ffffff",
     "on-danger": "#ffffff",
     "popover": "#ffffff",
-    "shadow-color": "#000000"
+    "shadow-color": "#000000",
+    "switch": "#34c759"
   },
   "dark": {
     "bg": "#000000",
@@ -85,6 +86,7 @@
     "on-ok": "#000000",
     "on-danger": "#ffffff",
     "popover": "#2c2c2e",
-    "shadow-color": "#000000"
+    "shadow-color": "#000000",
+    "switch": "#30d158"
   }
 }

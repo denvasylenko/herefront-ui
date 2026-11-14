@@ -1,0 +1,16 @@
+---
+// A real piece of a product built from the components: a card on the page's own background, live, in the docs'
+// appearance (light or dark). Props: title, note, html, width (content max width).
+const { title, note = '', html, width = '420px' } = Astro.props
+---
+<figure class="ex not-content">
+  <div class="ex-stage"><div class="ex-in" style={`max-width:${width}`} set:html={html} /></div>
+  <figcaption><b>{title}</b>{note && <span>{note}</span>}</figcaption>
+</figure>
+<style>
+  .ex { margin: 1.25rem 0; border: 1px solid var(--sl-color-hairline); border-radius: 18px; overflow: hidden; }
+  .ex-stage { padding: 28px 20px; background: var(--hf-bg); display: flex; justify-content: center; }
+  .ex-in { width: 100%; display: grid; gap: 14px; color: var(--hf-ink); font-family: var(--hf-font-sans); }
+  figcaption { display: grid; gap: 2px; padding: 12px 18px; border-top: 1px solid var(--sl-color-hairline); }
+  figcaption span { color: var(--sl-color-gray-3); font-size: .875rem; }
+</style>

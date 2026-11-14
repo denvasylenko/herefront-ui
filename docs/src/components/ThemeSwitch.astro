@@ -1,35 +1,40 @@
 ---
-// A live sample on the real tokens.css: pick a theme and a scheme, the same markup repaints. One attribute is the whole switch.
+// One sample on the real tokens.css: pick a theme and a scheme with segmented controls, the same markup repaints.
 ---
-<div class="hf-switch">
-  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
-    <button type="button" data-t="dashboard" aria-pressed="true">dashboard</button>
-    <button type="button" data-t="herefront" aria-pressed="false">herefront</button>
-    <button type="button" data-s="light" aria-pressed="true">light</button>
-    <button type="button" data-s="dark" aria-pressed="false">dark</button>
+<div class="ts not-content">
+  <div class="ts-bar">
+    <hf-segmented aria-label="Theme" value="dashboard" data-t><option value="dashboard">dashboard</option><option value="herefront">herefront</option></hf-segmented>
+    <hf-segmented aria-label="Appearance" value="light" data-s><option value="light">Light</option><option value="dark">Dark</option></hf-segmented>
   </div>
-  <div class="hf-stage" data-hf-theme="dashboard" data-hf-scheme="light" data-stage>
-    <div style="background:var(--hf-panel);border-radius:var(--hf-radius-4);padding:20px;box-shadow:var(--hf-shadow-2);max-width:360px">
-      <p style="margin:0;color:var(--hf-ink-2);font-size:13px">Today</p>
-      <p style="margin:4px 0 14px;font-size:34px;font-weight:700;color:var(--hf-ink)">128 <span style="font-size:15px;color:var(--hf-ok)">↑ 12%</span></p>
-      <button style="border:0;border-radius:var(--hf-radius-pill);background:var(--hf-accent);color:var(--hf-accent-ink);padding:10px 18px;font:600 15px/1 inherit">Publish</button>
-      <button style="border:0;border-radius:var(--hf-radius-pill);background:var(--hf-fill);color:var(--hf-ink);padding:10px 18px;font:600 15px/1 inherit;margin-left:6px">Preview</button>
+  <div class="ts-stage" data-hf-theme="dashboard" data-hf-scheme="light" data-stage>
+    <div class="ts-card">
+      <span class="ts-k">Today</span>
+      <span class="ts-n">128 <em>↑ 12%</em></span>
+      <div class="ts-acts"><hf-button variant="filled">Publish</hf-button><hf-button>Preview</hf-button></div>
     </div>
+    <hf-list header="Site" style="width:min(320px,100%);margin:0">
+      <hf-row title="Online booking"><hf-toggle checked aria-label="Online booking"></hf-toggle></hf-row>
+      <hf-row title="Language" value="Italiano" nav></hf-row>
+    </hf-list>
   </div>
-  <p style="font-size:.85rem;opacity:.75">Markup: <code data-code>&lt;div data-hf-theme="dashboard" data-hf-scheme="light"&gt;</code></p>
+  <pre class="ts-code"><code data-code>&lt;div data-hf-theme="dashboard" data-hf-scheme="light"&gt;</code></pre>
 </div>
 <style>
-  .hf-switch button[data-t], .hf-switch button[data-s] { border: 1px solid var(--sl-color-gray-5); background: transparent; color: var(--sl-color-text); border-radius: 999px; padding: 6px 14px; cursor: pointer; font: inherit; }
-  .hf-switch button[aria-pressed="true"] { background: var(--sl-color-accent); color: #fff; border-color: transparent; }
+  .ts { margin: 1.5rem 0; border: 1px solid var(--sl-color-hairline); border-radius: 18px; overflow: hidden; }
+  .ts-bar { display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid var(--sl-color-hairline); }
+  .ts-stage { display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start; justify-content: center; padding: 28px 20px; background: var(--hf-bg); }
+  .ts-card { display: grid; gap: 4px; width: min(300px, 100%); padding: 20px; border-radius: var(--hf-radius-4); background: var(--hf-panel); box-shadow: var(--hf-shadow-2); color: var(--hf-ink); }
+  .ts-k { font-size: 13px; color: var(--hf-ink-2); }
+  .ts-n { font-size: 34px; font-weight: 700; letter-spacing: -0.02em; }
+  .ts-n em { font-style: normal; font-size: 15px; font-weight: 600; color: var(--hf-ok); }
+  .ts-acts { display: flex; gap: 8px; margin-top: 10px; }
+  .ts-code { margin: 0; padding: 14px 16px; border-top: 1px solid var(--sl-color-hairline); font-size: .85rem; overflow-x: auto; }
 </style>
 <script>
-  document.querySelectorAll('.hf-switch').forEach((box) => {
-    const stage = box.querySelector('[data-stage]'), code = box.querySelector('[data-code]');
-    box.querySelectorAll('button').forEach((b) => b.addEventListener('click', () => {
-      const attr = b.dataset.t ? 'data-hf-theme' : 'data-hf-scheme', val = b.dataset.t || b.dataset.s;
-      stage.setAttribute(attr, val);
-      box.querySelectorAll(b.dataset.t ? '[data-t]' : '[data-s]').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
-      code.textContent = `<div data-hf-theme="${stage.getAttribute('data-hf-theme')}" data-hf-scheme="${stage.getAttribute('data-hf-scheme')}">`;
-    }));
-  });
+  document.querySelectorAll('.ts').forEach((box) => {
+    const stage = box.querySelector('[data-stage]'), code = box.querySelector('[data-code]')
+    const put = () => { code.textContent = `<div data-hf-theme="${stage.getAttribute('data-hf-theme')}" data-hf-scheme="${stage.getAttribute('data-hf-scheme')}">` }
+    box.querySelector('[data-t]').addEventListener('change', (e) => { stage.setAttribute('data-hf-theme', e.detail.value); put() })
+    box.querySelector('[data-s]').addEventListener('change', (e) => { stage.setAttribute('data-hf-scheme', e.detail.value); put() })
+  })
 </script>

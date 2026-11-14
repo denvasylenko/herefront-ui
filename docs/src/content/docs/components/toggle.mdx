@@ -1,0 +1,38 @@
+---
+title: Toggle
+description: A setting that is on or off and applies at once.
+---
+import Playground from '../../../components/Playground.astro';
+import Example from '../../../components/Example.astro';
+
+<Playground tag="hf-toggle" inner="Online booking" attrs={{ checked: true }} controls={[
+  { name: 'checked', label: 'On', type: 'bool' },
+  { name: 'disabled', label: 'Disabled', type: 'bool' },
+]} />
+
+## Examples
+
+<Example title="Notifications" note="Each toggle applies at once; the footer says what it does." html='<hf-list header="Notifications" footer="Requests come to Telegram the moment a guest sends them." style="margin:0"><hf-row title="New requests"><hf-toggle checked aria-label="New requests"></hf-toggle></hf-row><hf-row title="Weekly summary"><hf-toggle aria-label="Weekly summary"></hf-toggle></hf-row><hf-row title="Morning tip"><hf-toggle checked aria-label="Morning tip"></hf-toggle></hf-row></hf-list>' />
+
+<Example title="A setting with a label" note="The whole row toggles, label included." html='<div style="padding:14px 16px;border-radius:var(--hf-radius-3);background:var(--hf-panel);box-shadow:var(--hf-shadow-1)"><hf-toggle checked style="width:100%;justify-content:space-between">Online booking</hf-toggle></div>' />
+
+## When to use
+
+Only for a setting that takes effect immediately — no “Save” button after it. Not for actions, and not a checkbox:
+checkboxes are for picking several items of a list.
+
+## Behaviour
+
+- The whole row toggles, label included, as in Settings.
+- While you press, the knob stretches; it slides across with a spring.
+- `Space` or `Enter` toggles it from the keyboard. If saving fails, put it back and say why.
+
+## API
+
+| | |
+| --- | --- |
+| Attributes | `checked`, `disabled`, `aria-label` (if there is no visible label) |
+| Slots | default — the label |
+| Property | `checked` |
+| Parts | `switch` |
+| Events | `change` — `event.detail.checked` |

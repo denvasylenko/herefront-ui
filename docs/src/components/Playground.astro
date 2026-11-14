@@ -1,0 +1,88 @@
+---
+// A live component: the stage (light / dark), the controls (made of the components themselves) and the markup that
+// follows every change, with Copy. Props: tag, inner (HTML inside the tag), attrs (initial), controls
+// [{ name, label, type: 'choice' | 'bool', options? }], center (stage alignment), width (max width of the stage content).
+interface Control { name: string; label: string; type: 'choice' | 'bool'; options?: string[] }
+// each: { name, values } draws one component per value side by side (all the styles of a button at once)
+const { tag, inner = '', attrs = {}, controls = [] as Control[], width = '', center = true, each = null } = Astro.props
+const cfg = JSON.stringify({ tag, inner, attrs, controls, each })
+---
+<div class="pg not-content" data-pg={cfg}>
+  <div class="pg-stage" data-hf-scheme="light" data-stage>
+    <hf-segmented class="pg-scheme" aria-label="Appearance" value="light" data-scheme size="small"><option value="light">Light</option><option value="dark">Dark</option></hf-segmented>
+    <div class="pg-slot" style={`${center ? 'justify-content:center;' : ''}${width ? `max-width:${width};margin:0 auto;width:100%;` : ''}`} data-slot></div>
+  </div>
+  {controls.length > 0 && (
+    <div class="pg-controls">
+      {controls.map((c) => (
+        <div class="pg-row">
+          <span class="pg-label">{c.label}</span>
+          {c.type === 'choice'
+            ? <hf-segmented data-ctl={c.name} value={String(attrs[c.name] ?? c.options[0])} aria-label={c.label}>{c.options.map((o) => <option value={o}>{o}</option>)}</hf-segmented>
+            : <hf-toggle data-ctl={c.name} aria-label={c.label} checked={attrs[c.name] ? true : undefined}></hf-toggle>}
+        </div>
+      ))}
+    </div>
+  )}
+  <div class="pg-code">
+    <div class="pg-code-bar"><span>HTML</span><hf-button size="small" variant="plain" data-copy>Copy</hf-button></div>
+    <pre><code data-code></code></pre>
+  </div>
+</div>
+<style>
+  .pg { border: 1px solid var(--sl-color-hairline); border-radius: 18px; overflow: hidden; margin: 1.5rem 0; background: var(--sl-color-bg); }
+  .pg-stage { position: relative; display: flex; align-items: center; justify-content: center; min-height: 220px; padding: 56px 24px 32px;
+    background: var(--hf-bg); color: var(--hf-ink); }
+  .pg-scheme { position: absolute; top: 12px; right: 12px; }
+  .pg-slot { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; width: 100%; }
+  .pg-controls { border-top: 1px solid var(--sl-color-hairline); }
+  .pg-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 52px; padding: 8px 20px; }
+  .pg-row + .pg-row { border-top: .5px solid var(--sl-color-hairline); }
+  .pg-label { font-size: .95rem; color: var(--sl-color-text); }
+  .pg-code { position: relative; border-top: 1px solid var(--sl-color-hairline); background: var(--sl-color-gray-7, var(--sl-color-bg-nav)); }
+  .pg-code-bar { display: flex; align-items: center; justify-content: space-between; padding: 6px 8px 0 20px; font-size: .75rem; color: var(--sl-color-gray-3); }
+  .pg-code pre { margin: 0; padding: 4px 20px 16px; overflow-x: auto; font-size: .85rem; line-height: 1.55; background: transparent; border: 0; }
+  .pg-code code { font-family: var(--__sl-font-mono); color: var(--sl-color-text); white-space: pre; }
+  @media (max-width: 560px) { .pg-row { flex-wrap: wrap; padding: 10px 16px; } .pg-stage { padding: 60px 16px 28px; } }
+</style>
+<script>
+  const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;')
+  document.querySelectorAll('[data-pg]').forEach((pg) => {
+    const cfg = JSON.parse(pg.dataset.pg), state = { ...cfg.attrs }
+    const slot = pg.querySelector('[data-slot]'), code = pg.querySelector('[data-code]'), stage = pg.querySelector('[data-stage]')
+    function attrText() {
+      return Object.entries(state).filter(([, v]) => v !== false && v !== '' && v != null)
+        .map(([k, v]) => (v === true ? ` ${k}` : ` ${k}="${v}"`)).join('')
+    }
+    function render() {
+      if (cfg.each) {
+        const html = cfg.each.values.map((v) => `<${cfg.tag} ${cfg.each.name}="${v}"${attrText()}>${typeof cfg.inner === 'object' ? cfg.inner[v] : cfg.inner}</${cfg.tag}>`)
+        slot.innerHTML = html.join('')
+        code.textContent = html.join('\n')
+        return
+      }
+      const html = `<${cfg.tag}${attrText()}>${cfg.inner}</${cfg.tag}>`
+      slot.innerHTML = html
+      // readable markup: nested elements one per line, their own content inline; plain text stays on the tag's line
+      const tpl = document.createElement('template'); tpl.innerHTML = cfg.inner
+      const kids = [...tpl.content.children]
+      const open = `<${cfg.tag}${attrText()}>`, close = `</${cfg.tag}>`
+      code.textContent = kids.length ? [open, ...kids.map((k) => '  ' + k.outerHTML.replace(/=""/g, '')), close].join('\n') : open + cfg.inner + close
+    }
+    // the stage starts in the docs' own appearance
+    const docsDark = document.documentElement.dataset.theme === 'dark'
+    stage.setAttribute('data-hf-scheme', docsDark ? 'dark' : 'light'); pg.querySelector('[data-scheme]').value = docsDark ? 'dark' : 'light'
+    pg.querySelectorAll('[data-ctl]').forEach((c) => c.addEventListener('change', (e) => {
+      const name = c.dataset.ctl
+      state[name] = c.tagName === 'HF-TOGGLE' ? e.detail.checked : e.detail.value
+      if (c.tagName !== 'HF-TOGGLE' && cfg.controls.find((x) => x.name === name)?.options?.[0] === state[name] && name !== 'variant') delete state[name]
+      render()
+    }))
+    pg.querySelector('[data-scheme]').addEventListener('change', (e) => { stage.setAttribute('data-hf-scheme', e.detail.value) })
+    const copy = pg.querySelector('[data-copy]')
+    copy.addEventListener('click', () => {
+      navigator.clipboard?.writeText(code.textContent).then(() => { copy.textContent = 'Copied'; setTimeout(() => { copy.textContent = 'Copy' }, 1500) })
+    })
+    render()
+  })
+</script>

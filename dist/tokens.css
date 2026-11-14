@@ -95,6 +95,7 @@
   --hf-on-danger: #ffffff;
   --hf-popover: #ffffff;
   --hf-shadow-color: #000000;
+  --hf-switch: #34c759;
 }
 @media (prefers-color-scheme: dark) {
   :root, [data-hf-theme="dashboard"] {
@@ -140,6 +141,7 @@
     --hf-on-danger: #ffffff;
     --hf-popover: #2c2c2e;
     --hf-shadow-color: #000000;
+    --hf-switch: #30d158;
   }
 }
 [data-hf-theme="dashboard"][data-hf-scheme="light"], [data-hf-theme="dashboard"] [data-hf-scheme="light"], [data-hf-scheme="light"] {
@@ -185,6 +187,7 @@
   --hf-on-danger: #ffffff;
   --hf-popover: #ffffff;
   --hf-shadow-color: #000000;
+  --hf-switch: #34c759;
 }
 [data-hf-theme="dashboard"][data-hf-scheme="dark"], [data-hf-theme="dashboard"] [data-hf-scheme="dark"], [data-hf-scheme="dark"] {
   color-scheme: dark;
@@ -229,6 +232,7 @@
   --hf-on-danger: #ffffff;
   --hf-popover: #2c2c2e;
   --hf-shadow-color: #000000;
+  --hf-switch: #30d158;
 }
 :root[data-hf-theme="herefront"], [data-hf-theme="herefront"] {
   color-scheme: light;
@@ -276,6 +280,7 @@
   --hf-on-danger: #ffffff;
   --hf-popover: #ffffff;
   --hf-shadow-color: #000000;
+  --hf-switch: #34c759;
 }
 [data-hf-theme="herefront"] [data-hf-scheme] {
   color-scheme: light;
@@ -323,4 +328,5 @@
   --hf-on-danger: #ffffff;
   --hf-popover: #ffffff;
   --hf-shadow-color: #000000;
+  --hf-switch: #34c759;
 }

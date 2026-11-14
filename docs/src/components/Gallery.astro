@@ -1,0 +1,38 @@
+---
+// The overview: every component live in a card. Click the card's name to open its page; the components inside work.
+const b = import.meta.env.BASE_URL.replace(/\/$/, '');
+const items = [
+  { slug: 'button', name: 'Button', note: 'Filled, tinted, gray, plain, destructive, glass.',
+    html: '<hf-button variant="filled">Publish</hf-button><hf-button variant="tinted">Preview</hf-button><hf-button variant="plain">Cancel</hf-button>' },
+  { slug: 'segmented', name: 'Segmented control', note: '2–5 views of one thing; the thumb slides.',
+    html: '<hf-segmented value="week" aria-label="Period"><option value="day">Day</option><option value="week">Week</option><option value="month">Month</option></hf-segmented>' },
+  { slug: 'toggle', name: 'Toggle', note: 'A setting that applies at once.',
+    html: '<hf-toggle checked>Online booking</hf-toggle>' },
+  { slug: 'list', name: 'List', note: 'Inset grouped rows, as in Settings.',
+    html: '<hf-list style="width:100%;margin:0"><hf-row title="Opening hours" value="9–19" nav></hf-row><hf-row title="Notifications"><hf-toggle checked aria-label="Notifications"></hf-toggle></hf-row></hf-list>' },
+  { slug: 'chip', name: 'Chip', note: 'Filters and suggestions.',
+    html: '<hf-chip selectable selected>With phone</hf-chip><hf-chip selectable>Mobile</hf-chip><hf-chip removable>Pescara</hf-chip>' },
+];
+---
+<div class="gl not-content">
+  {items.map((it) => (
+    <article class="gl-card">
+      <div class="gl-stage" set:html={it.html} />
+      <a class="gl-meta" href={`${b}/components/${it.slug}/`}>
+        <span><b>{it.name}</b><small>{it.note}</small></span>
+        <svg viewBox="0 0 8 13" aria-hidden="true"><path d="M1.5 1.5 6.5 6.5 1.5 11.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </article>
+  ))}
+</div>
+<style>
+  .gl { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 16px; margin: 1.5rem 0; }
+  .gl-card { display: flex; flex-direction: column; border: 1px solid var(--sl-color-hairline); border-radius: 18px; overflow: hidden; background: var(--sl-color-bg); }
+  .gl-stage { flex: 1; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: center; min-height: 150px; padding: 24px 20px; background: var(--hf-bg); }
+  .gl-meta { display: flex; align-items: center; gap: 12px; padding: 14px 18px; border-top: 1px solid var(--sl-color-hairline); color: var(--sl-color-white); text-decoration: none; }
+  .gl-meta span { flex: 1; display: grid; gap: 2px; }
+  .gl-meta small { color: var(--sl-color-gray-3); font-size: .85rem; }
+  .gl-meta svg { width: 8px; height: 13px; color: var(--sl-color-gray-4); }
+  .gl-meta:hover b { color: var(--sl-color-accent); }
+  .gl-meta:focus-visible { outline: 3px solid color-mix(in srgb, var(--sl-color-accent) 45%, transparent); outline-offset: -3px; }
+</style>

@@ -1,0 +1,34 @@
+---
+title: Chip
+description: Filters, suggestions and small removable tokens.
+---
+import Playground from '../../../components/Playground.astro';
+import Example from '../../../components/Example.astro';
+
+<Playground tag="hf-chip" inner="With phone" attrs={{ selectable: true, selected: true }} controls={[
+  { name: 'selectable', label: 'Selectable', type: 'bool' },
+  { name: 'selected', label: 'Selected', type: 'bool' },
+  { name: 'removable', label: 'Removable', type: 'bool' },
+]} />
+
+## Examples
+
+<Example title="Quick filters above a list" note="Selected chips fill; the list follows at once." html='<div style="display:flex;flex-wrap:wrap;gap:8px"><hf-chip selectable selected>With phone</hf-chip><hf-chip selectable>Mobile</hf-chip><hf-chip selectable>Open now</hf-chip><hf-chip selectable>Hot leads</hf-chip></div>' />
+
+<Example title="Active filters" note="Each one removes itself; nothing else moves above it." html='<div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center"><span style="font-size:14px;color:var(--hf-ink-2)">2 412 results</span><hf-chip removable remove-label="Remove Pescara">Pescara</hf-chip><hf-chip removable remove-label="Remove Restaurants">Restaurants</hf-chip></div>' />
+
+<Example title="Suggestions under the chat" note="A tap sends the words." html='<div style="display:flex;flex-wrap:wrap;gap:8px"><hf-chip>Change opening hours</hf-chip><hf-chip>Warmer colours</hf-chip><hf-chip>What is left?</hf-chip></div>' />
+
+## When to use
+
+Quick filters above a list, suggestions under a chat, active filters you can remove. For 2–5 views of one thing use a
+[segmented control](../segmented/) instead.
+
+## API
+
+| | |
+| --- | --- |
+| Attributes | `selectable` (toggles on press, `aria-pressed`), `selected`, `removable` (shows ✕), `remove-label`, `disabled` |
+| Slots | default — the label; `icon` |
+| Parts | `chip`, `remove` |
+| Events | `change` — `event.detail.selected`; `remove` |

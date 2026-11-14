@@ -104,6 +104,7 @@ export function build() {
   const all = load()
   mkdirSync(join(ROOT, 'dist'), { recursive: true })
   const files = { 'tokens.css': tokensCss(all), 'compat.css': compatCss(all), 'ios-tokens.css': iosCss(all), 'tokens.json': tokensJson(all) }
+  files['components.js'] = readFileSync(join(ROOT, 'components/hf.js'), 'utf8')  // the web components, one file, no build step
   for (const [f, text] of Object.entries(files)) writeFileSync(join(ROOT, 'dist', f), text)
   return files
 }
