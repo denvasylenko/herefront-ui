@@ -1,0 +1,87 @@
+{
+  "$description": "Measures shared by every product and every theme: no palette colours here (themes own colours). Format: Design Tokens (DTCG) — every leaf has $value. CSS name = --hf-<group>-<key> (see build/build.mjs).",
+  "radius": {
+    "1": { "$type": "dimension", "$value": "6px" },
+    "2": { "$type": "dimension", "$value": "10px" },
+    "3": { "$type": "dimension", "$value": "14px" },
+    "4": { "$type": "dimension", "$value": "20px" },
+    "pill": { "$type": "dimension", "$value": "999px" }
+  },
+  "space": {
+    "1": { "$type": "dimension", "$value": "2px" },
+    "2": { "$type": "dimension", "$value": "4px" },
+    "3": { "$type": "dimension", "$value": "8px" },
+    "4": { "$type": "dimension", "$value": "12px" },
+    "5": { "$type": "dimension", "$value": "16px" },
+    "6": { "$type": "dimension", "$value": "20px" },
+    "7": { "$type": "dimension", "$value": "24px" },
+    "8": { "$type": "dimension", "$value": "32px" },
+    "9": { "$type": "dimension", "$value": "48px" }
+  },
+  "size": {
+    "hit": { "$type": "dimension", "$value": "44px", "$description": "smallest tap target (Apple HIG)" },
+    "control": { "$type": "dimension", "$value": "44px" },
+    "control-compact": { "$type": "dimension", "$value": "36px" }
+  },
+  "text": {
+    "xs": { "$type": "dimension", "$value": "12px" },
+    "s": { "$type": "dimension", "$value": "13px" },
+    "m": { "$type": "dimension", "$value": "15px" },
+    "l": { "$type": "dimension", "$value": "17px" },
+    "xl": { "$type": "dimension", "$value": "20px" },
+    "2xl": { "$type": "dimension", "$value": "28px" },
+    "3xl": { "$type": "dimension", "$value": "34px" }
+  },
+  "weight": {
+    "regular": { "$type": "fontWeight", "$value": "400" },
+    "medium": { "$type": "fontWeight", "$value": "500" },
+    "semibold": { "$type": "fontWeight", "$value": "600" },
+    "bold": { "$type": "fontWeight", "$value": "700" }
+  },
+  "row": {
+    "$description": "list rows as in Settings: height, side padding, hairline separator, separator inset from the left",
+    "h": { "$type": "dimension", "$value": "44px", "$legacy": "--ios-row-h" },
+    "pad": { "$type": "dimension", "$value": "16px", "$legacy": "--ios-row-pad" },
+    "sep": { "$type": "dimension", "$value": ".5px", "$legacy": "--ios-row-sep" },
+    "inset": { "$type": "dimension", "$value": "16px", "$legacy": "--ios-row-inset" }
+  },
+  "tint": {
+    "$description": "how much ink tints a row under the pointer / while pressed / when open",
+    "hover": { "$type": "number", "$value": "4%", "$legacy": "--ios-tint-hover" },
+    "press": { "$type": "number", "$value": "8%", "$legacy": "--ios-tint-press" }
+  },
+  "seg": {
+    "$description": "segmented control: track padding and radii, track tint",
+    "pad": { "$type": "dimension", "$value": "2px", "$legacy": "--ios-seg-pad" },
+    "r": { "$type": "dimension", "$value": "9px", "$legacy": "--ios-seg-r" },
+    "thumb-r": { "$type": "dimension", "$value": "7px", "$legacy": "--ios-seg-thumb-r" },
+    "track": { "$type": "number", "$value": "7%", "$legacy": "--ios-seg-track" }
+  },
+  "press": {
+    "$description": "a button sinks to this size; a card a little less",
+    "button": { "$type": "number", "$value": ".97", "$legacy": "--ios-press" },
+    "card": { "$type": "number", "$value": ".98", "$legacy": "--ios-press-card" }
+  },
+  "motion": {
+    "$description": "the system curve and the spring that overshoots a little",
+    "ease": { "$type": "cubicBezier", "$value": "cubic-bezier(.2, .8, .2, 1)", "$legacy": "--ios-ease" },
+    "spring": { "$type": "cubicBezier", "$value": "cubic-bezier(.34, 1.56, .64, 1)", "$legacy": "--ios-spring" },
+    "dur": { "$type": "duration", "$value": ".24s", "$legacy": "--ios-dur" }
+  },
+  "glass": {
+    "$description": "glass (Dock, Control Center): blur, saturation, light rim on top, thin dark edge",
+    "blur": { "$type": "dimension", "$value": "24px", "$legacy": "--ios-glass-blur" },
+    "sat": { "$type": "number", "$value": "180%", "$legacy": "--ios-glass-sat" },
+    "rim": { "$type": "color", "$value": "rgba(255, 255, 255, .35)", "$legacy": "--ios-glass-rim" },
+    "edge": { "$type": "color", "$value": "rgba(0, 0, 0, .12)", "$legacy": "--ios-glass-edge" }
+  },
+  "focus": {
+    "w": { "$type": "dimension", "$value": "3px", "$legacy": "--ios-focus" }
+  },
+  "hl": {
+    "$description": "highlighting a part of the screen the assistant points at (cabinet .gd-ring, Duchess field-highlight): ring width, how strong the accent is, how fast it appears. Colour = the theme's accent.",
+    "w": { "$type": "dimension", "$value": "3px" },
+    "mix": { "$type": "number", "$value": "45%" },
+    "dur": { "$type": "duration", "$value": ".3s" }
+  }
+}

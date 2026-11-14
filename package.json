@@ -1,0 +1,13 @@
+{
+  "name": "herefront-ui",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Herefront design system: tokens, themes and web components for every Herefront product and Duchess.",
+  "type": "module",
+  "scripts": {
+    "build": "node build/build.mjs",
+    "test": "node --test test/*.test.mjs",
+    "sync:cheese": "node build/sync.mjs cheese ../web_search_company_without_web"
+  },
+  "license": "UNLICENSED"
+}
