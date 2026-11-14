@@ -4,11 +4,11 @@ The design system of every Herefront product (dashboard and admin, client cabine
 client sites, the bot images) and of Duchess (`<agui-chat>`, field-highlight, its docs). The owner of this repository is
 the session «Head of Design · UI/UX expert». The user speaks Russian; code and comments are in English.
 
-The plan: `docs/design-system-plan.md` in the Cheese repo (`~/Documents/web_search_company_without_web`).
+The plan: `docs/design-system-plan.md` in the Cheese repo (a sibling folder, see `sync:cheese` in package.json).
 
 ## Rules
 
-- **Local only.** No GitHub remote and no push until the owner decides public or private (the CTO recommends public).
+- **Public repo** github.com/denvasylenko/herefront-ui (owner, 14.11.2026). Push only your own commits; nothing private (paths, people, keys) in files.
 - One source of truth: `tokens/*.json`. `dist/` and the copies in the products are generated — never edit them by hand.
 - A product file is changed only by the owner of that zone, or with their explicit "yes" (Cheese CLAUDE.md, org rules).
   `build/sync.mjs` writes only the files listed in `TARGETS`.
