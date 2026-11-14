@@ -38,3 +38,10 @@ test('the default theme keeps the weight of :root so a theme injected later stil
   assert.match(css, /^:root, \[data-hf-theme="dashboard"\] \{/m)
   assert.match(css, /:root\[data-hf-theme="herefront"\], \[data-hf-theme="herefront"\] \{/)
 })
+
+test('a widget can ask for a scheme on its own host; a light-only theme stays light', () => {
+  const css = tokensCss(all)
+  assert.match(css, /\[data-hf-theme="dashboard"\] \[data-hf-scheme="dark"\], \[data-hf-scheme="dark"\] \{\n  color-scheme: dark;/)
+  assert.match(css, /\[data-hf-theme="herefront"\] \[data-hf-scheme\] \{\n  color-scheme: light;/)
+  assert.match(compatCss(all), /:root, \[data-hf-theme="dashboard"\], \[data-hf-scheme\] \{/)
+})

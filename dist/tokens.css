@@ -88,6 +88,13 @@
   --hf-viz-o3: #256abf;
   --hf-viz-o4: #104281;
   --hf-font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", "Segoe UI", Roboto, sans-serif;
+  --hf-link: #0071e3;
+  --hf-soft: rgba(118, 118, 128, 0.08);
+  --hf-knob: #ffffff;
+  --hf-on-ok: #ffffff;
+  --hf-on-danger: #ffffff;
+  --hf-popover: #ffffff;
+  --hf-shadow-color: #000000;
 }
 @media (prefers-color-scheme: dark) {
   :root, [data-hf-theme="dashboard"] {
@@ -126,9 +133,16 @@
     --hf-viz-o2: #256abf;
     --hf-viz-o3: #3987e5;
     --hf-viz-o4: #86b6ef;
+    --hf-link: #0a84ff;
+    --hf-soft: rgba(118, 118, 128, 0.16);
+    --hf-knob: #ffffff;
+    --hf-on-ok: #000000;
+    --hf-on-danger: #ffffff;
+    --hf-popover: #2c2c2e;
+    --hf-shadow-color: #000000;
   }
 }
-[data-hf-theme="dashboard"][data-hf-scheme="light"], :root[data-hf-scheme="light"] {
+[data-hf-theme="dashboard"][data-hf-scheme="light"], [data-hf-theme="dashboard"] [data-hf-scheme="light"], [data-hf-scheme="light"] {
   color-scheme: light;
   --hf-bg: #f5f5f7;
   --hf-panel: #ffffff;
@@ -164,8 +178,15 @@
   --hf-viz-o3: #256abf;
   --hf-viz-o4: #104281;
   --hf-font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", "Segoe UI", Roboto, sans-serif;
+  --hf-link: #0071e3;
+  --hf-soft: rgba(118, 118, 128, 0.08);
+  --hf-knob: #ffffff;
+  --hf-on-ok: #ffffff;
+  --hf-on-danger: #ffffff;
+  --hf-popover: #ffffff;
+  --hf-shadow-color: #000000;
 }
-[data-hf-theme="dashboard"][data-hf-scheme="dark"], :root[data-hf-scheme="dark"] {
+[data-hf-theme="dashboard"][data-hf-scheme="dark"], [data-hf-theme="dashboard"] [data-hf-scheme="dark"], [data-hf-scheme="dark"] {
   color-scheme: dark;
   --hf-bg: #000000;
   --hf-panel: #1c1c1e;
@@ -201,6 +222,13 @@
   --hf-viz-o2: #256abf;
   --hf-viz-o3: #3987e5;
   --hf-viz-o4: #86b6ef;
+  --hf-link: #0a84ff;
+  --hf-soft: rgba(118, 118, 128, 0.16);
+  --hf-knob: #ffffff;
+  --hf-on-ok: #000000;
+  --hf-on-danger: #ffffff;
+  --hf-popover: #2c2c2e;
+  --hf-shadow-color: #000000;
 }
 :root[data-hf-theme="herefront"], [data-hf-theme="herefront"] {
   color-scheme: light;
@@ -241,4 +269,58 @@
   --hf-font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", "Helvetica Neue", Arial, sans-serif;
   --hf-ease-page: cubic-bezier(.28, .11, .32, 1);
   --hf-brand-grad: linear-gradient(135deg, #ff7a45 0%, #f0466e 50%, #a855f7 100%);
+  --hf-link: #0071e3;
+  --hf-soft: #f2f2f5;
+  --hf-knob: #ffffff;
+  --hf-on-ok: #ffffff;
+  --hf-on-danger: #ffffff;
+  --hf-popover: #ffffff;
+  --hf-shadow-color: #000000;
+}
+[data-hf-theme="herefront"] [data-hf-scheme] {
+  color-scheme: light;
+  --hf-bg: #f5f5f7;
+  --hf-panel: #ffffff;
+  --hf-seg-thumb: #ffffff;
+  --hf-panel-2: #fbfbfd;
+  --hf-ink: #1d1d1f;
+  --hf-ink-2: #6e6e73;
+  --hf-ink-3: #86868b;
+  --hf-line: rgba(0, 0, 0, 0.08);
+  --hf-line-strong: #d2d2d7;
+  --hf-fill: #f2f2f5;
+  --hf-fill-2: #e8e8ed;
+  --hf-hover: rgba(0, 0, 0, 0.04);
+  --hf-seg-on: #ffffff;
+  --hf-seg-on-ink: #1d1d1f;
+  --hf-accent: #0071e3;
+  --hf-accent-ink: #ffffff;
+  --hf-accent-soft: #e8f3fd;
+  --hf-ok: #248a3d;
+  --hf-ok-soft: #f0f8f2;
+  --hf-warn: #b25000;
+  --hf-warn-soft: rgba(255, 149, 0, 0.14);
+  --hf-danger: #ff3b30;
+  --hf-danger-soft: rgba(255, 59, 48, 0.1);
+  --hf-bar-bg: rgba(251, 251, 253, 0.86);
+  --hf-scrim: rgba(0, 0, 0, 0.18);
+  --hf-shadow-1: 0 1px 2px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.04);
+  --hf-shadow-2: 0 12px 40px -18px rgba(0, 0, 0, 0.25), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --hf-shadow-3: -20px 0 60px -20px rgba(0, 0, 0, 0.3);
+  --hf-viz-1: #2a78d6;
+  --hf-viz-1-soft: #86b6ef;
+  --hf-viz-o1: #86b6ef;
+  --hf-viz-o2: #5598e7;
+  --hf-viz-o3: #256abf;
+  --hf-viz-o4: #104281;
+  --hf-font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", "Helvetica Neue", Arial, sans-serif;
+  --hf-ease-page: cubic-bezier(.28, .11, .32, 1);
+  --hf-brand-grad: linear-gradient(135deg, #ff7a45 0%, #f0466e 50%, #a855f7 100%);
+  --hf-link: #0071e3;
+  --hf-soft: #f2f2f5;
+  --hf-knob: #ffffff;
+  --hf-on-ok: #ffffff;
+  --hf-on-danger: #ffffff;
+  --hf-popover: #ffffff;
+  --hf-shadow-color: #000000;
 }

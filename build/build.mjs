@@ -47,16 +47,21 @@ export function tokensCss({ base, themes }) {
     const t = themes[id], is = `[data-hf-theme="${id}"]`
     const own = id === DEFAULT_THEME ? `:root, ${is}` : `:root${is}, ${is}`
     const light = decl(t.light), dark = decl(t.dark)
+    // a forced scheme: data-hf-scheme="light" | "dark" on any element (a widget sets it on its own host, e.g. <agui-chat>),
+    // answered with the scheme of the theme it sits in: on the theme's element itself or anywhere inside it; the default
+    // theme also answers a bare attribute (a page without data-hf-theme)
+    const forced = (s) => [`${is}[data-hf-scheme="${s}"]`, `${is} [data-hf-scheme="${s}"]`, ...(id === DEFAULT_THEME ? [`[data-hf-scheme="${s}"]`] : [])].join(', ')
     if (t.scheme === 'light' || !Object.keys(t.dark).length) {
       css += block(own, `  color-scheme: light;\n${light}`)
+      // a light-only theme stays light whatever scheme an element inside asks for (the cabinet has no dark theme)
+      css += block(`${is} [data-hf-scheme]`, `  color-scheme: light;\n${light}`)
       continue
     }
     if (t.scheme === 'dark') { css += block(own, `  color-scheme: dark;\n${dark}`); continue }
     css += block(own, `  color-scheme: light;\n${light}`)
-    css += `@media (prefers-color-scheme: dark) {\n` + block(id === DEFAULT_THEME ? `:root, ${is}` : `:root${is}, ${is}`, `  color-scheme: dark;\n${dark}`).replace(/^/gm, '  ').trimEnd() + `\n}\n`
-    // a forced scheme on any container: data-hf-scheme="light" | "dark"
-    css += block(`${is}[data-hf-scheme="light"]${id === DEFAULT_THEME ? ', :root[data-hf-scheme="light"]' : ''}`, `  color-scheme: light;\n${light}`)
-    css += block(`${is}[data-hf-scheme="dark"]${id === DEFAULT_THEME ? ', :root[data-hf-scheme="dark"]' : ''}`, `  color-scheme: dark;\n${dark}`)
+    css += `@media (prefers-color-scheme: dark) {\n` + block(own, `  color-scheme: dark;\n${dark}`).replace(/^/gm, '  ').trimEnd() + `\n}\n`
+    css += block(forced('light'), `  color-scheme: light;\n${light}`)
+    css += block(forced('dark'), `  color-scheme: dark;\n${dark}`)
   }
   return css
 }
@@ -80,7 +85,7 @@ export function compatCss({ base, themes, compat }) {
       if (has.has(tok)) lines.push(`  ${old}: var(--hf-${tok});`)
     }
     const is = `[data-hf-theme="${id}"]`
-    css += block(id === DEFAULT_THEME ? `:root, ${is}` : `:root${is}, ${is}`, lines.join('\n'))
+    css += block(id === DEFAULT_THEME ? `:root, ${is}, [data-hf-scheme]` : `:root${is}, ${is}, ${is} [data-hf-scheme]`, lines.join('\n'))
   }
   return css
 }

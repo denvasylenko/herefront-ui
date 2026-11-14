@@ -38,6 +38,13 @@
     "viz-o4": "#104281",
     "font-sans": "-apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"SF Pro Text\", \"Inter\", \"Helvetica Neue\", Arial, sans-serif",
     "ease-page": "cubic-bezier(.28, .11, .32, 1)",
-    "brand-grad": "linear-gradient(135deg, #ff7a45 0%, #f0466e 50%, #a855f7 100%)"
+    "brand-grad": "linear-gradient(135deg, #ff7a45 0%, #f0466e 50%, #a855f7 100%)",
+    "link": "#0071e3",
+    "soft": "#f2f2f5",
+    "knob": "#ffffff",
+    "on-ok": "#ffffff",
+    "on-danger": "#ffffff",
+    "popover": "#ffffff",
+    "shadow-color": "#000000"
   }
 }

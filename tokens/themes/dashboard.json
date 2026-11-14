@@ -35,7 +35,14 @@
     "viz-o2": "#5598e7",
     "viz-o3": "#256abf",
     "viz-o4": "#104281",
-    "font-sans": "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Pro Display\", \"Helvetica Neue\", \"Segoe UI\", Roboto, sans-serif"
+    "font-sans": "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Pro Display\", \"Helvetica Neue\", \"Segoe UI\", Roboto, sans-serif",
+    "link": "#0071e3",
+    "soft": "rgba(118, 118, 128, 0.08)",
+    "knob": "#ffffff",
+    "on-ok": "#ffffff",
+    "on-danger": "#ffffff",
+    "popover": "#ffffff",
+    "shadow-color": "#000000"
   },
   "dark": {
     "bg": "#000000",
@@ -71,6 +78,13 @@
     "viz-o1": "#184f95",
     "viz-o2": "#256abf",
     "viz-o3": "#3987e5",
-    "viz-o4": "#86b6ef"
+    "viz-o4": "#86b6ef",
+    "link": "#0a84ff",
+    "soft": "rgba(118, 118, 128, 0.16)",
+    "knob": "#ffffff",
+    "on-ok": "#000000",
+    "on-danger": "#ffffff",
+    "popover": "#2c2c2e",
+    "shadow-color": "#000000"
   }
 }

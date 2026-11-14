@@ -4,7 +4,7 @@
   --radius: var(--hf-radius-3);
   --radius-lg: var(--hf-radius-4);
 }
-:root, [data-hf-theme="dashboard"] {
+:root, [data-hf-theme="dashboard"], [data-hf-scheme] {
   --bg: var(--hf-bg);
   --panel: var(--hf-panel);
   --panel-2: var(--hf-panel-2);
@@ -40,7 +40,7 @@
   --viz-o3: var(--hf-viz-o3);
   --viz-o4: var(--hf-viz-o4);
 }
-:root[data-hf-theme="herefront"], [data-hf-theme="herefront"] {
+:root[data-hf-theme="herefront"], [data-hf-theme="herefront"], [data-hf-theme="herefront"] [data-hf-scheme] {
   --bg: var(--hf-bg);
   --panel: var(--hf-panel);
   --panel-2: var(--hf-panel-2);
