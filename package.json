@@ -9,5 +9,5 @@
     "test": "node --test test/*.test.mjs",
     "sync:cheese": "node build/sync.mjs cheese ../web_search_company_without_web"
   },
-  "license": "UNLICENSED"
+  "license": "Apache-2.0"
 }

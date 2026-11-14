@@ -28,3 +28,7 @@ npm test
 - `tokens/base.json` — measures (radius, space, type, motion, glass, focus, highlight), `--hf-*`.
 - `tokens/themes/*.json` — colours per theme.
 - `tokens/compat.json` — older variable names kept as aliases while products move over.
+
+## License
+
+Apache-2.0, see [LICENSE](LICENSE).
