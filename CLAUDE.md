@@ -32,6 +32,11 @@ The plan: `docs/design-system-plan.md` in the Cheese repo (a sibling folder, see
   `tokens.json` (Python, bot images). Tests: `npm test`. Into Cheese: `npm run sync:cheese` → `frontend/ui/tokens.css`,
   `frontend/ui/compat.css`, `backend/app/site/ios-tokens.css`.
 
+## Rules for using tokens
+
+- Text: `--hf-ink` body, `--hf-ink-2` every caption and small text (AA 4.9:1), `--hf-ink-3` only placeholders, disabled
+  text, chevrons and decorative icons (3.6:1 — fails AA as a caption; decided 14.11.2026 instead of darkening it).
+
 ## Next
 
 2. agui-chat and field-highlight read `--hf-*` (through the Duchess Owner). 3–4. Web components `hf-*` (button,

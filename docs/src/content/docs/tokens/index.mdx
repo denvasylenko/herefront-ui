@@ -8,4 +8,15 @@ import TokenTable from '../../../components/TokenTable.astro';
 Read straight from `dist/tokens.json` when this site is built, so it is always what the products use. Colours show a
 swatch in light and dark; measures show their size.
 
+## Text colours: which one for what
+
+| Token | Contrast on white | Use for |
+| --- | --- | --- |
+| `--hf-ink` | 16:1 | body text, titles |
+| `--hf-ink-2` | 4.9:1 | captions, values in a row, secondary text — any small text |
+| `--hf-ink-3` | 3.6:1 | placeholders, disabled text, chevrons and decorative icons only — never a caption |
+
+`--hf-ink-3` is deliberately faint, as Apple's tertiary label. Small text in it fails WCAG AA, so captions and status
+lines use `--hf-ink-2`.
+
 <TokenTable />
